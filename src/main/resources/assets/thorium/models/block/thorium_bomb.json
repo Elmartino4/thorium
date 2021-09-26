@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/cube_bottom_top",
+  "textures": {
+    "top": "thorium:block/thorium_bomb_top",
+    "bottom": "thorium:block/thorium_bomb_bottom",
+    "side": "thorium:block/thorium_bomb_side"
+  }
+}

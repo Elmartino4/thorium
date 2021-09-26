@@ -1,0 +1,26 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "thorium:item/tiered_netherite_ingot_1"
+  },
+  "overrides": [
+    {
+      "predicate": {
+        "thorium:tiered_netherite_tier": 3.0
+      },
+      "model": "thorium:item/tiered_netherite_ingot_4"
+    },
+    {
+      "predicate": {
+        "thorium:tiered_netherite_tier": 1.0
+      },
+      "model": "thorium:item/tiered_netherite_ingot_2"
+    },
+    {
+      "predicate": {
+        "thorium:tiered_netherite_tier": 2.0
+      },
+      "model": "thorium:item/tiered_netherite_ingot_3"
+    }
+  ]
+}

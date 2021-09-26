@@ -1,9 +1,3 @@
-# Fabric Example Mod
+# Thorium Mod
 
-## Setup
-
-For setup instructions please see the [fabric wiki page](https://fabricmc.net/wiki/tutorial:setup) that relates to the IDE that you are using.
-
-## License
-
-This template is available under the CC0 license. Feel free to learn from it and incorporate it in your own projects.
+Adds thorium, which cna be used similarly to gold, to create high energy netherite which exists in various tiers.
