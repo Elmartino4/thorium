@@ -1,12 +1,14 @@
 {
   "required": true,
   "minVersion": "0.8",
-  "package": "github.Elmartino4.thorium.mixin",
+  "package": "github.elmartino4.thorium.mixin",
   "compatibilityLevel": "JAVA_16",
   "mixins": [
     "ChannelingEnchantmentMixin",
     "AxeItemMixin",
-    "PlayerEntityMixin"
+    "PlayerEntityMixin",
+    "LivingEntityMixin",
+    "MobEntityAccesor"
   ],
   "client": [
   ],

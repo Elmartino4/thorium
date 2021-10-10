@@ -1,14 +1,12 @@
-package github.Elmartino4.thorium.entity;
+package github.elmartino4.thorium.entity;
 
-import net.minecraft.block.Blocks;
+import github.elmartino4.thorium.items.ThoriumItems;
+import net.minecraft.client.render.Frustum;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.EntityRenderer;
 import net.minecraft.client.render.entity.EntityRendererFactory;
-import net.minecraft.client.render.entity.TntEntityRenderer;
 import net.minecraft.client.render.entity.TntMinecartEntityRenderer;
-import net.minecraft.client.texture.SpriteAtlasTexture;
 import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.entity.TntEntity;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3f;
@@ -16,6 +14,11 @@ import net.minecraft.util.math.Vec3f;
 public class ThoriumBombEntityRenderer extends EntityRenderer<ThoriumBombEntity> {
     public ThoriumBombEntityRenderer(EntityRendererFactory.Context context) {
         super(context);
+    }
+
+    @Override
+    public boolean shouldRender(ThoriumBombEntity entity, Frustum frustum, double x, double y, double z) {
+        return super.shouldRender(entity, frustum, x, y, z);
     }
 
     public void render(ThoriumBombEntity tntEntity, float f, float g, MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i) {
@@ -34,12 +37,13 @@ public class ThoriumBombEntityRenderer extends EntityRenderer<ThoriumBombEntity>
         matrixStack.multiply(Vec3f.POSITIVE_Y.getDegreesQuaternion(-90.0F));
         matrixStack.translate(-0.5D, -0.5D, 0.5D);
         matrixStack.multiply(Vec3f.POSITIVE_Y.getDegreesQuaternion(90.0F));
-        TntMinecartEntityRenderer.renderFlashingBlock(Blocks.TNT.getDefaultState(), matrixStack, vertexConsumerProvider, i, j / 5 % 2 == 0);
+        TntMinecartEntityRenderer.renderFlashingBlock(ThoriumItems.THORIUM_BOMB.getDefaultState(), matrixStack, vertexConsumerProvider, i, j / 5 % 2 == 0);
         matrixStack.pop();
         super.render(tntEntity, f, g, matrixStack, vertexConsumerProvider, i);
+        //System.out.println("called renderer");
     }
 
     public Identifier getTexture(ThoriumBombEntity tntEntity) {
-        return SpriteAtlasTexture.BLOCK_ATLAS_TEXTURE;
+        return new Identifier("thorium", "textures/block/thorium_bomb");
     }
 }

@@ -1,4 +1,4 @@
-package github.Elmartino4.thorium.mixin;
+package github.elmartino4.thorium.mixin;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;

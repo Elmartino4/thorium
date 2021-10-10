@@ -1,4 +1,4 @@
-package github.Elmartino4.thorium.items;
+package github.elmartino4.thorium.items;
 
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.item.Item;
@@ -17,6 +17,7 @@ public class ThoriumIngot extends Item {
 
     @Override
     public void appendTooltip(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext context) {
+        //System.out.println("tried make tooltip");
         if(stack.getOrCreateNbt().contains("quality")){
             String qualityStr = String.format("%.2f", stack.getOrCreateNbt().getDouble("quality"));
             tooltip.add(new TranslatableText("item.thorium.thorium_ingot.quality_tooltip").append(qualityStr));

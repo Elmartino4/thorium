@@ -1,8 +1,15 @@
-package github.Elmartino4.thorium.items;
+package github.elmartino4.thorium.items;
 
+import net.minecraft.client.item.TooltipContext;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.text.Text;
+import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Rarity;
+import net.minecraft.world.World;
+import org.jetbrains.annotations.Nullable;
+
+import java.util.List;
 
 public class TieredNetheriteIngot extends Item {
     public TieredNetheriteIngot(Settings settings) {
@@ -23,6 +30,14 @@ public class TieredNetheriteIngot extends Item {
                 return Rarity.EPIC;
         }
         return Rarity.UNCOMMON;
+    }
+
+    @Override
+    public void appendTooltip(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext context) {
+        if(stack.getOrCreateNbt().contains("quality")){
+            String qualityStr = String.format("%.2f", stack.getOrCreateNbt().getDouble("quality"));
+            tooltip.add(new TranslatableText("item.thorium.thorium_ingot.quality_tooltip").append(qualityStr));
+        }
     }
 
     @Override

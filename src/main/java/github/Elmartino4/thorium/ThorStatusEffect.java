@@ -1,4 +1,4 @@
-package github.Elmartino4.thorium;
+package github.elmartino4.thorium;
 
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.attribute.AttributeContainer;

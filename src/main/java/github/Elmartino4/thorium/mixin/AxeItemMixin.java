@@ -1,9 +1,7 @@
-package github.Elmartino4.thorium.mixin;
+package github.elmartino4.thorium.mixin;
 
-import github.Elmartino4.thorium.ThoriumMod;
+import github.elmartino4.thorium.ThoriumMod;
 import net.minecraft.block.Block;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.*;
@@ -44,7 +42,7 @@ public class AxeItemMixin extends MiningToolItem {
 
                 if(attacker instanceof ServerPlayerEntity){
                     if(attacker.isFallFlying() && stack.getItem() == Items.NETHERITE_AXE && attacker.getVelocity().distanceTo(new Vec3d(0,0,0)) > 0.27){
-                        System.out.println("effect");
+                        //System.out.println("effect");
                         if(!attacker.hasStatusEffect(ThoriumMod.THOR))
                             attacker.addStatusEffect(new StatusEffectInstance(ThoriumMod.THOR, 20 * 10, 1));
                     }

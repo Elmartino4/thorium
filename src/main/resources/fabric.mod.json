@@ -6,7 +6,7 @@
   "name": "Thorium Mod",
   "description": "Adds thorium, and high energy netherite",
   "authors": [
-    "Elmartino4"
+    "elmartino4"
   ],
   "contact": {
     "homepage": "https://fabricmc.net/",
@@ -19,7 +19,7 @@
   "environment": "*",
   "entrypoints": {
     "main": [
-      "github.Elmartino4.thorium.ThoriumMod"
+      "github.elmartino4.thorium.ThoriumMod"
     ]
   },
   "mixins": [

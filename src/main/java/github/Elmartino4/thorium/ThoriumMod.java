@@ -1,6 +1,6 @@
-package github.Elmartino4.thorium;
+package github.elmartino4.thorium;
 
-import github.Elmartino4.thorium.items.ThoriumItems;
+import github.elmartino4.thorium.items.ThoriumItems;
 import net.fabricmc.api.ModInitializer;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.util.Identifier;
@@ -21,7 +21,8 @@ public class ThoriumMod implements ModInitializer {
 		// However, some things (like resources) may still be uninitialized.
 		// Proceed with mild caution.
 
-		ThoriumItems.init();
+		ThoriumItems Items = new ThoriumItems();
+		ThoriumRecipes Recipes = new ThoriumRecipes();
 		Registry.register(Registry.STATUS_EFFECT, new Identifier("thorium", "thor"), THOR);
 		LOGGER.info("Loaded The Thorium Mod");
 	}

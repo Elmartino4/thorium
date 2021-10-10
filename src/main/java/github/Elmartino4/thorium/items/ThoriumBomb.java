@@ -1,13 +1,12 @@
-package github.Elmartino4.thorium.items;
+package github.elmartino4.thorium.items;
 
-import github.Elmartino4.thorium.entity.ThoriumBombEntity;
+import github.elmartino4.thorium.entity.ThoriumBombEntity;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.TntBlock;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.TntEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.ProjectileEntity;
 import net.minecraft.item.Item;
@@ -16,6 +15,8 @@ import net.minecraft.item.Items;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.stat.Stats;
+import net.minecraft.state.StateManager;
+import net.minecraft.state.property.IntProperty;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
@@ -27,8 +28,16 @@ import org.jetbrains.annotations.Nullable;
 
 public class ThoriumBomb extends TntBlock {
 
+    public static IntProperty POWER = IntProperty.of("power", 5, 60);
     public ThoriumBomb(Settings settings) {
         super(settings);
+        setDefaultState(this.getStateManager().getDefaultState().with(POWER, 5));
+    }
+
+    @Override
+    protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
+        super.appendProperties(builder);
+        builder.add(POWER);
     }
 
     public void onBlockAdded(BlockState state, World world, BlockPos pos, BlockState oldState, boolean notify) {
@@ -39,6 +48,13 @@ public class ThoriumBomb extends TntBlock {
             }
 
         }
+    }
+
+    @Override
+    public void onPlaced(World world, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack itemStack) {
+        super.onPlaced(world, pos, state, placer, itemStack);
+        int power = itemStack.getOrCreateNbt().getByte("power");
+        world.setBlockState(pos, this.getDefaultState().with(POWER, (power != 0) ? power : 5));
     }
 
     public void neighborUpdate(BlockState state, World world, BlockPos pos, Block block, BlockPos fromPos, boolean notify) {
@@ -105,7 +121,11 @@ public class ThoriumBomb extends TntBlock {
 
     private static void primeTnt(World world, BlockPos pos, @Nullable LivingEntity igniter) {
         if (!world.isClient) {
+            int power = world.getBlockState(pos).get(POWER);
             ThoriumBombEntity tntEntity = new ThoriumBombEntity(world, (double)pos.getX() + 0.5D, (double)pos.getY(), (double)pos.getZ() + 0.5D, igniter);
+            if(power != 5)
+                tntEntity.setPower(power);
+
             world.spawnEntity(tntEntity);
             world.playSound((PlayerEntity)null, tntEntity.getX(), tntEntity.getY(), tntEntity.getZ(), SoundEvents.ENTITY_TNT_PRIMED, SoundCategory.BLOCKS, 1.0F, 1.0F);
             world.emitGameEvent(igniter, GameEvent.PRIME_FUSE, pos);
