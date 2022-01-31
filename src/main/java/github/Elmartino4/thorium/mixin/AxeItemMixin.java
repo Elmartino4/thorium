@@ -1,5 +1,6 @@
 package github.elmartino4.thorium.mixin;
 
+import github.elmartino4.thorium.ThorStatusEffect;
 import github.elmartino4.thorium.ThoriumMod;
 import net.minecraft.block.Block;
 import net.minecraft.enchantment.EnchantmentHelper;
@@ -36,7 +37,10 @@ public class AxeItemMixin extends MiningToolItem {
             if (world.isSkyVisible(pos)) {
                 LightningEntity lightning = (LightningEntity) EntityType.LIGHTNING_BOLT.create(world);
                 lightning.refreshPositionAfterTeleport(Vec3d.ofBottomCenter((Vec3i)pos));
-                lightning.setChanneler((attacker instanceof ServerPlayerEntity) ? (ServerPlayerEntity)attacker : null);
+                if(attacker instanceof ServerPlayerEntity){
+                    System.out.println("found channeler");
+                    lightning.setChanneler((ServerPlayerEntity)attacker);
+                }
                 world.spawnEntity(lightning);
                 world.playSound(null, pos, SoundEvents.ITEM_TRIDENT_THUNDER, SoundCategory.WEATHER, 5.0F, 1.0F);
 
@@ -44,7 +48,7 @@ public class AxeItemMixin extends MiningToolItem {
                     if(attacker.isFallFlying() && stack.getItem() == Items.NETHERITE_AXE && attacker.getVelocity().distanceTo(new Vec3d(0,0,0)) > 0.27){
                         //System.out.println("effect");
                         if(!attacker.hasStatusEffect(ThoriumMod.THOR))
-                            attacker.addStatusEffect(new StatusEffectInstance(ThoriumMod.THOR, 20 * 10, 1));
+                            attacker.addStatusEffect(new StatusEffectInstance(ThoriumMod.THOR, ThorStatusEffect.timeConst, 1));
                     }
                 }
             }

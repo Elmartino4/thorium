@@ -9,10 +9,7 @@ import net.minecraft.block.Blocks;
 import net.minecraft.block.Material;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.EquipmentSlot;
-import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.*;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
@@ -23,6 +20,7 @@ import net.minecraft.inventory.Inventories;
 import net.minecraft.item.*;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -44,6 +42,10 @@ public abstract class LivingEntityMixin extends Entity {
 
     @Shadow public abstract float getMaxHealth();
 
+    @Shadow @Nullable private LivingEntity attacker;
+
+    @Shadow private LivingEntity attacking;
+
     @Inject(method = "onStatusEffectRemoved", at = @At("HEAD"), cancellable = true)
     private void cancelMilk(StatusEffectInstance effect, CallbackInfo ci) {
         if (effect.getEffectType() == StatusEffects.WITHER) ci.cancel();
@@ -52,13 +54,24 @@ public abstract class LivingEntityMixin extends Entity {
     @Inject(method = "drop", at = @At(value = "INVOKE",
             target = "Lnet/minecraft/entity/LivingEntity;dropLoot(Lnet/minecraft/entity/damage/DamageSource;Z)V"), cancellable = true)
     private void checkDrop(DamageSource source, CallbackInfo ci) {
+        Entity attacker = (source.getSource() != null) ? source.getSource() : source.getAttacker();
 
-        //System.out.println("called drop loot");
+        System.out.println(attacker.toString());
 
-        if (source.getAttacker() instanceof LivingEntity) {
-            //System.out.println("attacker is thor");
-            LivingEntity attacker = (LivingEntity) source.getAttacker();
-            if (attacker.hasStatusEffect(ThoriumMod.THOR)) {
+        if(attacker instanceof LightningEntity){
+            System.out.println("by lightning");
+            if(((LightningEntity)attacker).getChanneler() != null){
+                attacker = ((LightningEntity)attacker).getChanneler();
+                System.out.println("used channeler");
+            }
+        }
+
+        if (attacker instanceof LivingEntity livingAttacker) {
+
+            System.out.println("checking attacker");
+
+            if (livingAttacker.hasStatusEffect(ThoriumMod.THOR)) {
+                System.out.println("attacker is thor");
                 dropXp();
                 double quality = getQuality();
 

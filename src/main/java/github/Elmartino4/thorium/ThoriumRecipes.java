@@ -1,5 +1,6 @@
 package github.elmartino4.thorium;
 
+import github.elmartino4.thorium.recipe.CheapBookRecipe;
 import github.elmartino4.thorium.recipe.NetheriteUpgradeRecipe;
 import github.elmartino4.thorium.recipe.TieredNetheriteIngotRecipe;
 import net.minecraft.recipe.SpecialRecipeSerializer;
@@ -16,4 +17,10 @@ public class ThoriumRecipes {
             Registry.RECIPE_SERIALIZER,
             new Identifier("thorium","netherite_upgrade"),
             new SpecialRecipeSerializer<>(NetheriteUpgradeRecipe::new));
+
+    public static final SpecialRecipeSerializer<CheapBookRecipe> CHEAP_BOOKS =
+            Registry.register(Registry.RECIPE_SERIALIZER,
+                    new Identifier("thorium","crafting_special_cheap_books"),
+                    new SpecialRecipeSerializer<>(CheapBookRecipe::new));
+
 }

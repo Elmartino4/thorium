@@ -1,5 +1,7 @@
 {
   "effect.thorium.thor": "Thor",
   "item.thorium.thorium_ingot.quality_tooltip": "Quality: ",
-  "block.thorium.thorium_bomb": "Thorium Bomb"
+  "block.thorium.thorium_bomb": "Thorium Bomb",
+  "item.thorium.thorium_ingot": "Thorium Ingot",
+  "item.thorium.tiered_netherite_ingot": "Energetic Netherite Ingot"
 }
